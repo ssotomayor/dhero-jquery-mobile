@@ -64,7 +64,7 @@ var app = {
     },
 
     stopPoll: function () {
-        c.doPoll = false;
+        this.config.doPoll = false;
     },
 
     show: function (el) {
