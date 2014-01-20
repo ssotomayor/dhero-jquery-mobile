@@ -11,12 +11,14 @@ var app = {
         mostOrdered: null
     },
 
+    //Initialize the app
     init: function () {
         console.log("init:app");
         this.poll();
         this.initMap();
     },
 
+    // Poll the API, get orders
     poll: function () {
         console.log("poll:app");
         if (this.config.doPoll) {
@@ -63,10 +65,12 @@ var app = {
         }
     },
 
+    // Stop polling,
     stopPoll: function () {
-        c.doPoll = false;
+        this.config.doPoll = false;
     },
 
+    // Show popup with Order, Price and Map with position of the order
     show: function (el) {
         $('#iframe').get(0).contentWindow.latLng = {lat: el.geo_lat, long: el.geo_long};
         $('#iframe').get(0).contentWindow.order = "Order #" + el.id;
@@ -75,6 +79,7 @@ var app = {
         $("#product_data").html('<b>Name:</b> ' + el.name + '<br />' + '<b>Price: </b>$' +el.price);
     },
 
+    // Get most ordered food
     getMostOrdered: function(){
         var maxN = 0,
             mOrdered;
@@ -100,6 +105,7 @@ var app = {
         return this.config.mostOrdered;
     },
 
+    //Initialize Google Map
     initMap: function(){
         $( document ).on( "pagecreate", function() {
             // The window width and height are decreased by 30 to take the tolerance of 15 pixels at each side into account
@@ -154,6 +160,7 @@ var app = {
     }
 };
 
+// Set request interval to poll
 var eInterval = window.setInterval(function () {
     app.poll();
 },5000);
